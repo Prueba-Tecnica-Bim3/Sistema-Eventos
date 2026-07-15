@@ -1,0 +1,62 @@
+.event-card {
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.event-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.event-card-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.event-card-title:hover {
+  color: var(--color-primary);
+}
+
+.event-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.event-card-meta span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.event-card-meta svg {
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.event-card-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.event-card-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.event-card-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
