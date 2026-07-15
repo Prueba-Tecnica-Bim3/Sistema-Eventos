@@ -1,0 +1,22 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+.idea/
+TestResults/
+*.DotSettings.user
+logs/
+
+## Secrets
+.env
+.env.local
+.env.*.local
+*.pfx
+appsettings.*.local.json
+
+## OS
+Thumbs.db
+Desktop.ini
+.DS_Store
