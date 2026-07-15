@@ -1,0 +1,9 @@
+process.env.NODE_ENV = 'test';
+process.env.PORT = '3002';
+process.env.MONGO_URI = 'mongodb://localhost:27017/service-registrations-test';
+process.env.EVENTS_SERVICE_URL = 'http://localhost:3000';
+process.env.JWT_SECRET = 'test-secret-key-for-jest-only';
+process.env.JWT_ISSUER = 'sistema-eventos-auth';
+process.env.JWT_AUDIENCE = 'sistema-eventos-services';
+process.env.JWT_ALGORITHM = 'HS256';
+process.env.CORS_ORIGIN = 'http://localhost:5173';

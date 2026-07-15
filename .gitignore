@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+**/.env
+!**/.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build / dist
+dist/
+build/
+**/dist/
+**/build/
+
+# .NET
+**/bin/
+**/obj/
+*.user
+*.suo
+.vs/
+*.swp
+
+# Test / coverage
+coverage/
+**/coverage/
+*.lcov
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.code-workspace
+
+# Vite / tooling
+*.local
+.cache/
+.turbo/
+
+# Docker volumes / local data
+data/
+*.db

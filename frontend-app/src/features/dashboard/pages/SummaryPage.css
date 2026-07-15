@@ -1,0 +1,106 @@
+.summary-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.summary-stat {
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summary-stat-label {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.summary-stat-value {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.stat-primary {
+  color: var(--color-primary);
+}
+
+.stat-success {
+  color: var(--color-success-text);
+}
+
+.stat-warning {
+  color: var(--color-warning-text);
+}
+
+.summary-table-wrap {
+  padding: 8px 24px;
+  overflow-x: auto;
+}
+
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.summary-table th {
+  text-align: left;
+  padding: 14px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.summary-table td {
+  padding: 16px 12px;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.summary-table tr:last-child td {
+  border-bottom: none;
+}
+
+.summary-table-name {
+  font-weight: 600;
+}
+
+.summary-table-progress {
+  width: 140px;
+}
+
+.summary-table-empty {
+  text-align: center;
+  color: var(--color-text-secondary);
+  padding: 28px 12px !important;
+}
+
+.summary-error {
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.summary-loading {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  padding: 24px 0;
+}
+
+@media (max-width: 720px) {
+  .summary-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

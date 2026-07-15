@@ -1,0 +1,129 @@
+{
+  "info": {
+    "name": "Service Registrations",
+    "description": "Coleccion de pruebas para el microservicio service-registrations (Sistema-Eventos). Importar junto con el environment 'service-registrations.postman_environment.json'.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{token}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3002", "type": "string" },
+    { "key": "token", "value": "", "type": "string" },
+    { "key": "eventId", "value": "64f1c2b7e1a2b3c4d5e6f7a8", "type": "string" },
+    { "key": "registrationId", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "auth": { "type": "noauth" },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Registrar inscripcion",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (pm.response.code === 201) {",
+              "  const body = pm.response.json();",
+              "  pm.collectionVariables.set('registrationId', body.data.registration.id || body.data.registration._id);",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"eventId\": \"{{eventId}}\",\n  \"attendeeName\": \"Jane Doe\",\n  \"attendeeEmail\": \"jane@example.com\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/registrations",
+          "host": ["{{baseUrl}}"],
+          "path": ["registrations"]
+        }
+      }
+    },
+    {
+      "name": "Cancelar inscripcion",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/registrations/{{registrationId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["registrations", "{{registrationId}}"]
+        }
+      }
+    },
+    {
+      "name": "Listar asistentes de un evento",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/events/{{eventId}}/attendees?status=confirmed",
+          "host": ["{{baseUrl}}"],
+          "path": ["events", "{{eventId}}", "attendees"],
+          "query": [
+            { "key": "status", "value": "confirmed", "description": "confirmed | cancelled | all" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Eventos con cupos disponibles",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/events/available",
+          "host": ["{{baseUrl}}"],
+          "path": ["events", "available"]
+        }
+      }
+    },
+    {
+      "name": "Eventos con cupo completo",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/events/full",
+          "host": ["{{baseUrl}}"],
+          "path": ["events", "full"]
+        }
+      }
+    },
+    {
+      "name": "Resumen de ocupacion",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/summary",
+          "host": ["{{baseUrl}}"],
+          "path": ["summary"]
+        }
+      }
+    }
+  ]
+}

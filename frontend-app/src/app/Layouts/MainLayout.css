@@ -1,0 +1,15 @@
+.main-layout {
+  display: flex;
+  min-height: 100svh;
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.main-content-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 32px;
+}

@@ -1,0 +1,43 @@
+.create-event-form {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 640px;
+}
+
+.create-event-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.create-event-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.create-event-error {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.create-event-muted {
+  margin-top: 20px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+@media (max-width: 520px) {
+  .create-event-row {
+    grid-template-columns: 1fr;
+  }
+}

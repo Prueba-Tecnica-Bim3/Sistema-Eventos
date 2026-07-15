@@ -1,0 +1,32 @@
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  border-radius: 9px;
+  flex-shrink: 0;
+}
+
+.logo-text {
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--color-text);
+}
+
+.logo-tagline {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}

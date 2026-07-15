@@ -1,16 +1,32 @@
-# React + Vite
+# Frontend — Sistema de Eventos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + Vite + React Router.
 
-Currently, two official plugins are available:
+## Scripts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+pnpm install
+pnpm dev      # http://localhost:5173
+pnpm build
+pnpm preview
+```
 
-## React Compiler
+## Variables de entorno
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Copia `.env.example` a `.env`:
 
-## Expanding the ESLint configuration
+```env
+VITE_AUTH_API_URL=http://localhost:5001
+VITE_EVENTS_API_URL=http://localhost:3001
+VITE_REGISTRATIONS_API_URL=http://localhost:3002
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Reinicia Vite después de cambiar el `.env`.
+
+## Funcionalidades
+
+- Auth (registro / login) con JWT
+- CRUD de eventos
+- Inscripciones y cancelaciones
+- Cupos disponibles / cupo completo
+- Resumen de ocupación
