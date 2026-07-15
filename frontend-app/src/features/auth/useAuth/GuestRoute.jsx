@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom'
-import { useAuth } from './AuthContext'
+import { useAuth } from '../hooks/useAuth'
 
-/** Rutas de auth: si ya hay sesión, redirige al dashboard. */
+/** Guard: rutas de auth; si ya hay sesión, redirige al dashboard. */
 export default function GuestRoute() {
   const { isAuthenticated } = useAuth()
 

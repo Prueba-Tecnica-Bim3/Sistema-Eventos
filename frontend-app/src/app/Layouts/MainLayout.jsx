@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import Sidebar from '../../shared/components/Sidebar'
-import { useAuth } from '../../shared/auth/AuthContext'
+import { useAuth } from '../../features/auth/useAuth'
 import './MainLayout.css'
 
 export default function MainLayout() {

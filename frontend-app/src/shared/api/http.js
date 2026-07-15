@@ -1,4 +1,4 @@
-import { TOKEN_STORAGE_KEY } from './config'
+import { TOKEN_STORAGE_KEY } from '../constants'
 
 export class ApiError extends Error {
   constructor(message, { status = 0, code = null, details = null } = {}) {
