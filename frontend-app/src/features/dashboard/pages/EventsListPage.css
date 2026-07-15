@@ -1,0 +1,20 @@
+.events-new-btn {
+  margin-bottom: 20px;
+}
+
+.events-search {
+  margin-bottom: 24px;
+}
+
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.events-empty {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  padding: 24px 0;
+  text-align: center;
+}
