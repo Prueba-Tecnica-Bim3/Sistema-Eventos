@@ -1,0 +1,83 @@
+.occupancy-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.occupancy-card {
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.occupancy-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.occupancy-card-title {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.occupancy-card-title:hover {
+  color: var(--color-primary);
+}
+
+.occupancy-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 18px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.occupancy-card-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.occupancy-card-meta svg {
+  color: var(--color-text-muted);
+}
+
+.occupancy-card-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.occupancy-card-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.occupancy-empty {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  padding: 24px 0;
+  text-align: center;
+}
+
+.occupancy-feedback {
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.occupancy-feedback-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}

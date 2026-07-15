@@ -4,8 +4,12 @@ const { REGISTRATION_STATUS } = require('../registrations/registrations.model');
 
 const normalizeEvent = (event) => ({
   id: String(event.id ?? event._id ?? event.eventId),
-  name: event.name ?? event.title ?? 'Evento sin nombre',
-  capacity: Number(event.capacity ?? event.maxCapacity ?? event.maxAttendees ?? 0),
+  name: event.name ?? event.nombre ?? event.title ?? 'Evento sin nombre',
+  capacity: Number(
+    event.capacity ?? event.capacidad ?? event.maxCapacity ?? event.maxAttendees ?? 0,
+  ),
+  date: event.fecha ?? event.date ?? null,
+  location: event.lugar ?? event.location ?? '',
 });
 
 const countConfirmedByEvent = (eventId) => Registration.countDocuments({
@@ -37,6 +41,8 @@ const buildEventOccupancy = async (rawEvent) => {
   return {
     eventId: event.id,
     name: event.name,
+    date: event.date,
+    location: event.location,
     ...calculateOccupancy(event.capacity, registered),
   };
 };

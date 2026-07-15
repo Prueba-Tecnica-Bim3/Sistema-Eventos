@@ -1,11 +1,22 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useCallback, useEffect, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ArrowLeftIcon } from '../../../shared/icons'
 import * as eventsApi from '../../../shared/api/events.api'
 import { ApiError } from '../../../shared/api/http'
 import './CreateEventPage.css'
 
-export default function CreateEventPage() {
+function toDateInputValue(value) {
+  if (!value) return ''
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return ''
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
+export default function EditEventPage() {
+  const { id } = useParams()
   const navigate = useNavigate()
 
   const [nombre, setNombre] = useState('')
@@ -14,12 +25,43 @@ export default function CreateEventPage() {
   const [lugar, setLugar] = useState('')
   const [descripcion, setDescripcion] = useState('')
   const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+
+  const loadEvent = useCallback(async () => {
+    setLoading(true)
+    setError('')
+    try {
+      const response = await eventsApi.getEventById(id)
+      const event = response?.data?.event
+      if (!event) {
+        throw new ApiError('Evento no encontrado', { status: 404 })
+      }
+
+      setNombre(event.nombre ?? event.name ?? '')
+      setFecha(toDateInputValue(event.fecha ?? event.date))
+      setCapacidad(String(event.capacidad ?? event.capacity ?? ''))
+      setLugar(event.lugar ?? event.location ?? '')
+      setDescripcion(event.descripcion ?? event.description ?? '')
+    } catch (err) {
+      setError(
+        err instanceof ApiError
+          ? err.message
+          : 'No se pudo cargar el evento.',
+      )
+    } finally {
+      setLoading(false)
+    }
+  }, [id])
+
+  useEffect(() => {
+    loadEvent()
+  }, [loadEvent])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
-    setLoading(true)
+    setSaving(true)
 
     try {
       const payload = {
@@ -30,36 +72,41 @@ export default function CreateEventPage() {
         descripcion: descripcion.trim(),
       }
 
-      const response = await eventsApi.createEvent(payload)
-      const created = response?.data?.event
-      const id = created?._id ?? created?.id
-
-      if (id) {
-        navigate(`/eventos/${id}`, { replace: true })
-      } else {
-        navigate('/eventos', { replace: true })
-      }
+      await eventsApi.updateEvent(id, payload)
+      navigate(`/eventos/${id}`, { replace: true })
     } catch (err) {
       setError(
         err instanceof ApiError
           ? err.message
-          : 'No se pudo crear el evento.',
+          : 'No se pudo actualizar el evento.',
       )
     } finally {
-      setLoading(false)
+      setSaving(false)
     }
+  }
+
+  if (loading) {
+    return (
+      <div>
+        <Link to="/eventos" className="back-link">
+          <ArrowLeftIcon width={16} height={16} />
+          Volver a eventos
+        </Link>
+        <p className="create-event-muted">Cargando evento…</p>
+      </div>
+    )
   }
 
   return (
     <div>
-      <Link to="/eventos" className="back-link">
+      <Link to={`/eventos/${id}`} className="back-link">
         <ArrowLeftIcon width={16} height={16} />
-        Volver a eventos
+        Volver al detalle
       </Link>
 
       <div className="page-header">
-        <h1>Crear evento</h1>
-        <p>Completa la información para crear el evento.</p>
+        <h1>Editar evento</h1>
+        <p>Actualiza la información del evento.</p>
       </div>
 
       <form className="card create-event-form" onSubmit={handleSubmit}>
@@ -75,7 +122,7 @@ export default function CreateEventPage() {
             required
             minLength={3}
             maxLength={150}
-            disabled={loading}
+            disabled={saving}
           />
         </div>
 
@@ -89,7 +136,7 @@ export default function CreateEventPage() {
               value={fecha}
               onChange={(e) => setFecha(e.target.value)}
               required
-              disabled={loading}
+              disabled={saving}
             />
           </div>
           <div className="field">
@@ -103,7 +150,7 @@ export default function CreateEventPage() {
               value={capacidad}
               onChange={(e) => setCapacidad(e.target.value)}
               required
-              disabled={loading}
+              disabled={saving}
             />
           </div>
         </div>
@@ -120,7 +167,7 @@ export default function CreateEventPage() {
             required
             minLength={3}
             maxLength={200}
-            disabled={loading}
+            disabled={saving}
           />
         </div>
 
@@ -133,7 +180,7 @@ export default function CreateEventPage() {
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
             maxLength={1000}
-            disabled={loading}
+            disabled={saving}
           />
         </div>
 
@@ -143,13 +190,13 @@ export default function CreateEventPage() {
           <button
             type="button"
             className="btn btn-outline"
-            onClick={() => navigate('/eventos')}
-            disabled={loading}
+            onClick={() => navigate(`/eventos/${id}`)}
+            disabled={saving}
           >
             Cancelar
           </button>
-          <button type="submit" className="btn btn-primary" disabled={loading}>
-            {loading ? 'Guardando…' : 'Guardar evento'}
+          <button type="submit" className="btn btn-primary" disabled={saving}>
+            {saving ? 'Guardando…' : 'Guardar cambios'}
           </button>
         </div>
       </form>
