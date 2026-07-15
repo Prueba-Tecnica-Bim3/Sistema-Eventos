@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom'
 import StatusBadge from '../../../shared/components/StatusBadge'
 import ProgressBar from '../../../shared/components/ProgressBar'
 import { CalendarIcon, PinIcon } from '../../../shared/icons'
-import { getEventStatus } from '../../../shared/data/mockEvents'
+import { getEventStatus } from '../../../shared/utils/events'
 import './EventCard.css'
 
-export default function EventCard({ event, onEdit, onDelete }) {
+export default function EventCard({ event, onEdit, onDelete, deleting = false }) {
   const status = getEventStatus(event)
   const available = Math.max(event.capacity - event.registered, 0)
 
@@ -47,8 +47,9 @@ export default function EventCard({ event, onEdit, onDelete }) {
           type="button"
           className="btn btn-danger-outline btn-block"
           onClick={() => onDelete?.(event)}
+          disabled={deleting}
         >
-          Eliminar
+          {deleting ? 'Eliminando…' : 'Eliminar'}
         </button>
       </div>
     </div>

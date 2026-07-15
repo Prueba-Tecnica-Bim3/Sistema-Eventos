@@ -76,6 +76,29 @@
   width: 140px;
 }
 
+.summary-table-empty {
+  text-align: center;
+  color: var(--color-text-secondary);
+  padding: 28px 12px !important;
+}
+
+.summary-error {
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.summary-loading {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  padding: 24px 0;
+}
+
 @media (max-width: 720px) {
   .summary-stats {
     grid-template-columns: repeat(2, 1fr);

@@ -19,6 +19,23 @@
   margin-top: 8px;
 }
 
+.create-event-error {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.create-event-muted {
+  margin-top: 20px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
 @media (max-width: 520px) {
   .create-event-row {
     grid-template-columns: 1fr;

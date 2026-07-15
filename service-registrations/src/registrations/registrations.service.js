@@ -7,8 +7,10 @@ const appError = (statusCode, message) => Object.assign(new Error(message), { st
 
 const normalizeEvent = (event) => ({
   id: String(event.id ?? event._id ?? event.eventId),
-  name: event.name ?? event.title ?? 'Evento sin nombre',
-  capacity: Number(event.capacity ?? event.maxCapacity ?? event.maxAttendees ?? 0),
+  name: event.name ?? event.nombre ?? event.title ?? 'Evento sin nombre',
+  capacity: Number(
+    event.capacity ?? event.capacidad ?? event.maxCapacity ?? event.maxAttendees ?? 0,
+  ),
 });
 
 const fetchEventOrFail = async (eventId, token) => {

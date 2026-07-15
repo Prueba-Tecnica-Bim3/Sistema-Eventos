@@ -1,19 +1,29 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import Logo from './Logo'
-import { CalendarIcon, PlusIcon, ChartIcon } from '../icons'
+import {
+  CalendarIcon,
+  PlusIcon,
+  ChartIcon,
+  CheckCircleIcon,
+  FullCircleIcon,
+} from '../icons'
 import './Sidebar.css'
 
 const navItems = [
   { to: '/eventos', label: 'Eventos', icon: CalendarIcon, end: true },
   { to: '/eventos/nuevo', label: 'Crear evento', icon: PlusIcon },
+  { to: '/eventos/disponibles', label: 'Disponibles', icon: CheckCircleIcon },
+  { to: '/eventos/completos', label: 'Cupo completo', icon: FullCircleIcon },
   { to: '/resumen', label: 'Resumen', icon: ChartIcon },
 ]
 
-export default function Sidebar({ user = { name: 'spongebob' } }) {
+export default function Sidebar({ user, onLogout }) {
   const navigate = useNavigate()
+  const displayName = user?.name?.trim() || user?.email || 'Usuario'
 
   const handleLogout = () => {
-    navigate('/login')
+    onLogout?.()
+    navigate('/login', { replace: true })
   }
 
   return (
@@ -37,9 +47,9 @@ export default function Sidebar({ user = { name: 'spongebob' } }) {
       </nav>
 
       <div className="sidebar-user">
-        <div className="sidebar-user-avatar">{user.name.charAt(0).toUpperCase()}</div>
+        <div className="sidebar-user-avatar">{displayName.charAt(0).toUpperCase()}</div>
         <div className="sidebar-user-info">
-          <span className="sidebar-user-name">{user.name}</span>
+          <span className="sidebar-user-name">{displayName}</span>
           <button type="button" className="sidebar-logout" onClick={handleLogout}>
             Cerrar sesión
           </button>
