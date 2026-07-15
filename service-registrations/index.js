@@ -1,18 +1,16 @@
 require('dotenv').config();
 
-const express = require('express');
-const registrationsRoutes = require('./src/registrations');
+const app = require('./configs/app');
+const connectDB = require('./configs/db');
 
-const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
-app.use(express.json());
-app.use('/api/registrations', registrationsRoutes);
+const start = async () => {
+  await connectDB();
 
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', service: 'service-registration' });
-});
+  app.listen(PORT, () => {
+    console.log(`service-registrations listening on port ${PORT}`);
+  });
+};
 
-app.listen(PORT, () => {
-  console.log(`Service registration running on port ${PORT}`);
-});
+start();
