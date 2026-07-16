@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { ArrowLeftIcon } from '../../../shared/icons'
+import { ArrowLeftIcon } from '../../../shared/components/icons'
 import * as eventsApi from '../../../shared/api/events.api'
 import { ApiError } from '../../../shared/api/http'
 import './CreateEventPage.css'

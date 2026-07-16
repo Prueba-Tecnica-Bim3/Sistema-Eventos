@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import StatusBadge from '../../../shared/components/StatusBadge'
 import ProgressBar from '../../../shared/components/ProgressBar'
-import { CalendarIcon, PinIcon } from '../../../shared/icons'
+import { CalendarIcon, PinIcon } from '../../../shared/components/icons'
 import { getEventStatus } from '../../../shared/utils/events'
 import './EventCard.css'
 
