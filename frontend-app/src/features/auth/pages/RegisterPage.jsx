@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Logo from '../../../shared/components/Logo'
-import { useAuth } from '../../../shared/auth/AuthContext'
+import { useAuth } from '../useAuth'
 import { ApiError } from '../../../shared/api/http'
 import './AuthPages.css'
 

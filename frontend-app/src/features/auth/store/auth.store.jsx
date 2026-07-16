@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react'
-import * as authApi from '../api/auth.api'
-import { TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '../api/config'
-import { ApiError } from '../api/http'
+import * as authApi from '../../../shared/api/auth.api'
+import { ApiError } from '../../../shared/api/http'
+import { TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '../../../shared/constants'
 
 const AuthContext = createContext(null)
 
@@ -14,6 +14,7 @@ function readStoredUser() {
   }
 }
 
+/** Persistencia del token y del perfil en localStorage. */
 function persistSession(token, user) {
   if (token) localStorage.setItem(TOKEN_STORAGE_KEY, token)
   else localStorage.removeItem(TOKEN_STORAGE_KEY)

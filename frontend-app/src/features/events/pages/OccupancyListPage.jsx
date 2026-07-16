@@ -1,16 +1,9 @@
-import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import StatusBadge from '../../../shared/components/StatusBadge'
 import ProgressBar from '../../../shared/components/ProgressBar'
-import { CalendarIcon, PinIcon } from '../../../shared/icons'
-import * as eventsApi from '../../../shared/api/events.api'
-import * as registrationsApi from '../../../shared/api/registrations.api'
-import { ApiError } from '../../../shared/api/http'
-import {
-  formatEventDate,
-  getEventStatus,
-  mergeEventsWithOccupancy,
-} from '../../../shared/utils/events'
+import { CalendarIcon, PinIcon } from '../../../shared/components/icons'
+import { getEventStatus } from '../../../shared/utils/events'
+import { useOccupancyList } from '../useEvents'
 import './OccupancyListPage.css'
 
 /**
@@ -18,66 +11,7 @@ import './OccupancyListPage.css'
  * mode: 'available' | 'full'
  */
 export default function OccupancyListPage({ mode = 'available' }) {
-  const isAvailable = mode === 'available'
-  const title = isAvailable ? 'Eventos con cupos disponibles' : 'Eventos con cupo completo'
-  const subtitle = isAvailable
-    ? 'Eventos que todavía tienen lugares libres para inscribir asistentes.'
-    : 'Eventos que alcanzaron su capacidad máxima.'
-
-  const [events, setEvents] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
-
-  const load = useCallback(async () => {
-    setLoading(true)
-    setError('')
-    try {
-      const [occupancyRes, eventsRes] = await Promise.all([
-        isAvailable
-          ? registrationsApi.getAvailableEvents()
-          : registrationsApi.getFullEvents(),
-        eventsApi.listEvents({ limit: 100 }).catch(() => null),
-      ])
-
-      const occupancyList = occupancyRes?.data?.events ?? []
-      const rawEvents = eventsRes?.data?.events ?? []
-
-      if (rawEvents.length > 0) {
-        const occupancyIds = new Set(
-          occupancyList.map((item) => String(item.eventId ?? item.id)),
-        )
-        const filteredRaw = rawEvents.filter((event) =>
-          occupancyIds.has(String(event.id ?? event._id)),
-        )
-        setEvents(mergeEventsWithOccupancy(filteredRaw, occupancyList))
-      } else {
-        setEvents(
-          occupancyList.map((item) => ({
-            id: String(item.eventId ?? item.id),
-            name: item.name ?? 'Sin nombre',
-            dateLabel: item.date ? formatEventDate(item.date) : '—',
-            location: item.location ?? '',
-            capacity: item.capacity ?? 0,
-            registered: item.registered ?? 0,
-            isFull: item.isFull ?? !isAvailable,
-          })),
-        )
-      }
-    } catch (err) {
-      setError(
-        err instanceof ApiError
-          ? err.message
-          : 'No se pudo cargar la lista de eventos.',
-      )
-      setEvents([])
-    } finally {
-      setLoading(false)
-    }
-  }, [isAvailable])
-
-  useEffect(() => {
-    load()
-  }, [load])
+  const { events, loading, error, isAvailable, title, subtitle } = useOccupancyList(mode)
 
   return (
     <div>

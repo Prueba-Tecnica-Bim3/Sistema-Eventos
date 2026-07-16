@@ -6,7 +6,7 @@ import {
   ChartIcon,
   CheckCircleIcon,
   FullCircleIcon,
-} from '../icons'
+} from './icons'
 import './Sidebar.css'
 
 const navItems = [

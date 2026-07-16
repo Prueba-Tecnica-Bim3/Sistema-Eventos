@@ -1,6 +1,7 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import { useAuth } from './AuthContext'
+import { useAuth } from '../hooks/useAuth'
 
+/** Guard: solo usuarios autenticados. */
 export default function ProtectedRoute() {
   const { isAuthenticated } = useAuth()
   const location = useLocation()
